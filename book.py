@@ -15,7 +15,7 @@ class Book:
         
 
     def insert_sell(self, quantity, price):
-        
+	"""insert sell order in the order book if it's possible """        
         sell_order = Order(quantity, price, type_of_order='sell')
 
         if quantity != 0:
@@ -58,7 +58,7 @@ class Book:
         return None
 
     def insert_buy(self, quantity, price):
-       
+       """insert buy order in the order book if it's possible """
         buy_order = Order(quantity, price, type_of_order='buy')
 
         if quantity != 0:
@@ -102,7 +102,7 @@ class Book:
         return None
 
     def insert_deals(self, deal):
-        
+        """ insert  deal in the history that contains all the transactions"""
         self._execute_deals.append(deal)
         return None
 
@@ -127,7 +127,7 @@ class Book:
         return status
 
     def create_df_order(self):
- 
+ 	""" Pandas Visualization part returning a dataframe object with all the buy & sell orders"""
         df_sell_orders = pd.DataFrame([sell_order.__dict__ for sell_order in self._sell_orders])
         df_buy_orders = pd.DataFrame([buy_order.__dict__ for buy_order in self._buy_orders])
         df_all_orders = df_sell_orders.append(df_buy_orders)

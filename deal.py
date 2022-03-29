@@ -1,6 +1,6 @@
 class Deal:
     def __init__(self, quantity, price, book_name):
-       
+     """ a deal is defined with a quantity (amount of the transaction), its price and the book name it refers to """  
         self._quantity = quantity
         self._price = price
         self._book_name = book_name
