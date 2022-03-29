@@ -11,7 +11,7 @@ class Book:
         self._buy_orders = buy_orders
         self._sell_orders = sell_orders
         self._execute_deals = execute_deals
-        
+         
         
 
     def insert_sell(self, quantity, price):
@@ -37,8 +37,6 @@ class Book:
 
                 sell_order.set_quantity(new_qty)
                 print(deal.__str__())
-
-         
             else:
                 deal = Deal(sell_order.get_quantity(), self._buy_orders[0].get_price(), self._name)
                 self._execute_deals.append(deal)
@@ -49,14 +47,13 @@ class Book:
                 sell_order.set_qquantity(0)
 
                 if self._buy_orders[0].get_quantity() == 0:
-                    
                     self._buy_orders.remove(self._buy_orders[0])
 
                 self._sell_orders.remove(self._sell_orders[0])
-		
-		print(deal.__str__())
-	
-	print(self.get_status())
+                
+                print(deal.__str__())
+        
+        print(self.get_status())
 
         return None
 
@@ -68,12 +65,10 @@ class Book:
             self._buy_orders.append(buy_order)
             self._buy_orders.sort()
             self._buy_orders.reverse()
-	    print('--- Insert {order} on {book}'.format(order=buy_order.__str__(), book=self._name))
+            print('--- Insert {order} on {book}'.format(order=buy_order.__str__(), book=self._name))
 
-        while len(self._sell_orders) != 0 and self._sell_orders[
-            0].get_price() <= buy_order.get_price() and buy_order.get_quantity() > 0:
+        while len(self._sell_orders) != 0 and self._sell_orders[0].get_price() <= buy_order.get_price() and buy_order.get_quantity() > 0:
 
-         
             if buy_order.get_quantity() > self._sell_orders[0].get_quantity():
                 
                 deal = Deal(self._sell_orders[0].get_quantity(), self._sell_orders[0].get_price(), self._name)
@@ -102,9 +97,8 @@ class Book:
                 if self._sell_orders[0].get_quantity() == 0:
                     
                     self._sell_orders.remove(self._sell_orders[0])
-		print(deal.__str__())
-
-	print(self.get_status())
+                print(deal.__str__())
+        print(self.get_status())
         return None
 
     def insert_deals(self, deal):
@@ -124,8 +118,11 @@ class Book:
         status += 'Book on {}\n'.format(self._name.upper())
         order_book = self.create_df_order()
         status += order_book.to_string(index=False)
-	status += '\n------------------------'
+        status += '\n------------------------'
         return status
 
 
-    
+
+
+         
+
