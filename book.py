@@ -22,7 +22,7 @@ class Book:
             self._sell_orders.append(sell_order)
             self._sell_orders.sort()
             
-        while len(self._buy_orders) == 0 and self._buy_orders[0].get_price() >= sell_order.get_price() and sell_order.get_quantity() > 0:
+        while len(self._buy_orders) != 0 and self._buy_orders[0].get_price() >= sell_order.get_price() and sell_order.get_quantity() > 0:
 
            
             if sell_order.get_quantity() > self._buy_orders[0].get_quantity():

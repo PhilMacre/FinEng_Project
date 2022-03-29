@@ -2,7 +2,7 @@ import itertools
 
 
 class Order:
-    nb_of_id = itertools.count(0) 
+    nb_of_id = itertools.count(1) 
     
     
     
@@ -11,7 +11,7 @@ class Order:
         self._quantity = quantity
         self._price = price
         self._type = type_of_order.upper()
-        self._id = self.nb_of_id
+        self._id = next(self.nb_of_id)
         
         
         
