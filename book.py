@@ -1,8 +1,8 @@
 from order import Order
 from deal import Deal
-
+import warnings
 import pandas as pd
-
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class Book:
     def __init__(self, name='Default order book', buy_orders=[], sell_orders=[], execute_deals=[]):
@@ -44,7 +44,7 @@ class Book:
                
                 self._buy_orders[0].set_quantity(self._buy_orders[0].get_quantity() - sell_order.get_quantity())
 
-                sell_order.set_qquantity(0)
+                sell_order.set_quantity(0)
 
                 if self._buy_orders[0].get_quantity() == 0:
                     self._buy_orders.remove(self._buy_orders[0])
@@ -79,7 +79,7 @@ class Book:
                
                 self._sell_orders.remove(self._sell_orders[0])
 
-                buy_order.set_qty(new_qty)
+                buy_order.set_quantity(new_qty)
                 print(deal.__str__())
 
           
@@ -121,6 +121,13 @@ class Book:
         status += '\n------------------------'
         return status
 
+    def create_df_order(self):
+ 
+        df_sell_orders = pd.DataFrame([sell_order.__dict__ for sell_order in self._sell_orders])
+        df_buy_orders = pd.DataFrame([buy_order.__dict__ for buy_order in self._buy_orders])
+        df_all_orders = df_sell_orders.append(df_buy_orders)
+        df_all_orders.columns = ['QTY', 'PRICE', 'TYPE', 'ID']
+        return df_all_orders
 
 
 
