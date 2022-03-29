@@ -28,26 +28,36 @@ class Book:
         self.buy_orders=[]
         self.sell_orders=[]
 
-    def Execution1(self,order,buy=True):
-        if buy :
-            if order.price<=self.sell_orders[0].price: #Si on peut executer l'ordre
+    def exec(self,order):
+        if order.buy :
+            while len(self.sell_orders)!=0 and self.sell_orders[0].price <= order.price and order.quantity > 0:
                 if order.quantity<self.sell_orders[0]: #Ordre cmplet
                     self.sell_orders[0].quantity-=order.quantity
                 else : #Ordre partiel
                     order.quantity-=self.sell_orders[0]
                     self.sell_orders=self.sell_orders[1:]
-                    Execution1(self,order)
                     
-
-        
+                    
+        else : 
+            while len(self.buy_orders)!=0 and self.buy_orders[0].price >= order.price and order.quantity > 0:
+                if order.quantity < self.buy_orders[0]:
+                    self.buy_orders[0].quantity-=order.quantity
+                else : 
+                    order.quantity -= self.buy_orders[0]
+                    self.buy_orders=self.buy_orders[1:]
 
     def insert_sell(self,quantity,price):
         sell_order=Order(quantity,price,False)
+        print(f"----- Insert {sell_order.__str__()} on {self.NAME}")
+        exec(self,sell_order)
         self.sell_orders.sort(key=lambda x: x.price*x.id,reverse=False)#sell donc le plus petit prix en premier mais pour s'épargner l'ordre qui est arrivé en premier aura son produit P0*id plus petit, plus besoin de comparer les id
         bisect.insort(self.sell_orders,sell_order)
+        print(sell_order)
 
     def insert_buy(self,quantity,price):
         buy_order=Order(quantity,price,True)
+        print(f"----- Insert {buy_order.__str__()} on {self.NAME}")
+        exec(self,buy_order)
         self.buy_orders.sort(key=lambda x: x.price*x.id,reverse=True) #buy donc le plus élevé en premier
         bisect.insort(self.buy_orders,buy_order)
 
