@@ -49,16 +49,17 @@ class Book:
     def insert_sell(self,quantity,price):
         sell_order=Order(quantity,price,False)
         print(f"----- Insert {sell_order.__str__()} on {self.NAME}")
-        exec(self,sell_order)
         self.sell_orders.sort(key=lambda x: x.price*x.id,reverse=False)#sell donc le plus petit prix en premier mais pour s'épargner l'ordre qui est arrivé en premier aura son produit P0*id plus petit, plus besoin de comparer les id
+        exec(self,sell_order)
         bisect.insort(self.sell_orders,sell_order)
         print(sell_order)
 
     def insert_buy(self,quantity,price):
         buy_order=Order(quantity,price,True)
         print(f"----- Insert {buy_order.__str__()} on {self.NAME}")
-        exec(self,buy_order)
+        
         self.buy_orders.sort(key=lambda x: x.price*x.id,reverse=True) #buy donc le plus élevé en premier
+        exec(self,buy_order)
         bisect.insort(self.buy_orders,buy_order)
 
 
