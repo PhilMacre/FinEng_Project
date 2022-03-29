@@ -113,6 +113,11 @@ class Book:
         return self._buy_orders
 
     def get_status(self):
+        """
+            Return the order book status (string)
+        :return: string
+            Status of the order book
+        """
         status = ""
 
         status += 'Book on {}\n'.format(self._name.upper())
